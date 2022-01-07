@@ -1,9 +1,6 @@
-# <>=
-
-
-karakterler = [
+characters = [
     {
-        'isim': 'Termo',
+        'name': 'Termite',
         'hp':100,
         'power':10,
         'special':20,
@@ -12,7 +9,7 @@ karakterler = [
         
     },
     {
-        'isim': 'VOLKANNNN',
+        'name': 'Volcano',
         'hp':500,
         'power':5,
         'special':20,
@@ -20,7 +17,7 @@ karakterler = [
         'specialRoundCooldown':6
     },
     {
-        'isim': 'AHHHH met',
+        'name': 'GlassCannon',
         'hp':50,
         'power':250,
         'special':20,
@@ -30,17 +27,17 @@ karakterler = [
 ]
 
 
-print('Karakterlerimiz:')
+print('Characters:')
 
-for i,karakter in enumerate(karakterler):
-    for key,value in karakter.items():   
+for i,character in enumerate(characters):
+    for key,value in character.items():   
         print(str(i)+" "+key,value, sep=' - ', end=' ')
     print()
 
-p1=karakterler[int(input("p1 karakter seç "))]
-p2=karakterler[int(input("p1 karakter seç "))]
+p1=characters[int(input("p1 choose your character "))]
+p2=characters[int(input("p1 choose your character "))]
 
-print(f"p1 ={p1['isim']}, p2={p2['isim']}")
+print(f"p1 ={p1['name']}, p2={p2['name']}")
 
 def attack(p,enemy):
    enemy["hp"]= enemy["hp"]-p["power"]
@@ -57,7 +54,7 @@ while p1["hp"]>0 and p2["hp"]>0:
         p1["specialRoundLeft"]=p1["specialRoundCooldown"]
     else:    
         attack(p1,p2)
-        print(f"p1 saldırdı, p2 can :{p2['hp']}")
+        print(f"p1 attacked!, p2 Hp :{p2['hp']}")
     p1["specialRoundLeft"]=p1["specialRoundLeft"]-1
     
    
@@ -67,10 +64,10 @@ while p1["hp"]>0 and p2["hp"]>0:
         p2["specialRoundLeft"]=p2["specialRoundCooldown"]
     else:
         attack(p2,p1)  
-        print(f"p2 saldırdı, p1 can :{p1['hp']}")
+        print(f"p2 attacked!, p1 Hp :{p1['hp']}")
     p2["specialRoundLeft"]=p2["specialRoundLeft"]-1
 
 if p1["hp"]>0:
-    print(f"KAZANAN :P1 {p1['isim']}")
+    print(f"WINNER!! :P1 {p1['name']}")
 else:
-    print(f"KAZANAN :P2 {p2['isim']}")
+    print(f"WINNER!! :P2 {p2['name']}")
