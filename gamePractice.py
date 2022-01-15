@@ -81,11 +81,11 @@ while p1["hp"] > 0 and p2["hp"] > 0:
     for key, value in p1.items():
         if key == 'skills':
             for i, skill in enumerate(value):
-                print(i, skill['name'], skill['cooldownLeft'],skill['manacost'])
+                print(i, skill['name'], skill['cooldownLeft'])
                 
     p1Skill = p1['skills'][int(input('Select skill: '))]            
     while True: # ???????????????????
-        if p1Skill['cooldownLeft'] == 0 and p1Skill['manaCost'] < p1['mana']:
+        if p1Skill['cooldownLeft'] == 0 and p1Skill['manaCost'] <= p1['mana']:
             if p1Skill['type'] =='attack':
                 p1Skill['trigger'](p1, p2)
             else:
@@ -108,7 +108,7 @@ while p1["hp"] > 0 and p2["hp"] > 0:
     for key, value in p2.items():
         if key == 'skills':
             for i,skill in enumerate(value):
-                print(i, skill['name'], skill['cooldownLeft'],skill['manacost'])
+                print(i, skill['name'], skill['cooldownLeft'])
                 
     p2Skill = p2['skills'][int(input('Select skill: '))]
     while True:
@@ -134,8 +134,8 @@ p2['mana']=p2['mana']+5
     # TODO Select Skill DONE
     # TODO Solve Heal Attack function problem DONE
     # TODO ADD cooldown to skills DONE
-    # TODO Add mana cost to skills
-    # TODO ADD one time skills (Volcano -> Transform skill)
+    # TODO Add mana cost to skills DONE
+    # TODO 1 (Volcano -> Transform skill)
 
 if p1["hp"]>0:
     print(f"WINNER!! :P1 {p1['name']}")
