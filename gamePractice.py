@@ -30,30 +30,34 @@ characters = [
         'name': 'Terminator',
         'hp':250,
         'power':20,
+        'mana':50,
         'skills': [
-            {'name': 'Basic Attack', 'trigger': attack,'type':'attack','cooldown':1,'cooldownLeft':0},
-            {'name': 'Grenade', 'trigger': TerminatorGrenade,'type':'attack','cooldown':3,'cooldownLeft':0},
-            {'name': 'Machine Gun', 'trigger': TerminatorMachineGun,'type':'attack','cooldown':4,'cooldownLeft':0}
+            {'name': 'Basic Attack', 'trigger': attack,'type':'attack','cooldown':1,'cooldownLeft':0,'manaCost':0},
+            {'name': 'Grenade', 'trigger': TerminatorGrenade,'type':'attack','cooldown':3,'cooldownLeft':0,'manaCost':5},
+            {'name': 'Machine Gun', 'trigger': TerminatorMachineGun,'type':'attack','cooldown':4,'cooldownLeft':0,'manaCost':10}
         ]
     },
     {
         'name': 'Volcano',
         'hp':500,
         'power':5,
+        'mana':50,
         'skills': [
-            {'name': 'Basic Attack', 'trigger': attack,'type':'attack','cooldown':1,'cooldownLeft':0},
-            {'name': 'Lava Lash:', 'trigger': VolcanoLavaLash,'type':'attack','cooldown':4,'cooldownLeft':0},
-            {'name': 'Transform', 'trigger': VolcanoTransform,'type':'utility','cooldown':101,'cooldownLeft':0}
+            {'name': 'Basic Attack', 'trigger': attack,'type':'attack','cooldown':1,'cooldownLeft':0,'manaCost':0},
+            {'name': 'Lava Lash:', 'trigger': VolcanoLavaLash,'type':'attack','cooldown':4,'cooldownLeft':0,'manaCost':5},
+            {'name': 'Transform', 'trigger': VolcanoTransform,'type':'utility','cooldown':101,'cooldownLeft':0,'manaCost':50}
         ]
     },
     {
         'name': 'GlassCannon',
         'hp':75,
         'power':50,
+        'mana':50,
         'skills': [
-            {'name': 'Basic Attack', 'trigger': attack,'type':'attack','cooldown':1,'cooldownLeft':0},
-            {'name': 'Destroy', 'trigger': CannonDestroy,'type':'attack','cooldown':4,'cooldownLeft':0},
-            {'name': 'Heal', 'trigger': CannonHeal,'type':'utility','cooldown':5,'cooldownLeft':0}
+            {'name': 'Basic Attack', 'trigger': attack,'type':'attack','cooldown':1,'cooldownLeft':0,'manaCost':0},
+            {'name': 'Destroy', 'trigger': CannonDestroy,'type':'attack','cooldown':4,'cooldownLeft':0,'manaCost':10},
+            {'name': 'Heal', 'trigger': CannonHeal,'type':'utility','cooldown':5,'cooldownLeft':0,'manaCost':10}
+            
         ]
     }
 ]
@@ -77,11 +81,11 @@ while p1["hp"] > 0 and p2["hp"] > 0:
     for key, value in p1.items():
         if key == 'skills':
             for i, skill in enumerate(value):
-                print(i, skill['name'], skill['cooldownLeft'])
+                print(i, skill['name'], skill['cooldownLeft'],skill['manacost'])
                 
     p1Skill = p1['skills'][int(input('Select skill: '))]            
     while True: # ???????????????????
-        if p1Skill['cooldownLeft'] == 0:
+        if p1Skill['cooldownLeft'] == 0 and p1Skill['manaCost'] < p1['mana']:
             if p1Skill['type'] =='attack':
                 p1Skill['trigger'](p1, p2)
             else:
@@ -104,11 +108,11 @@ while p1["hp"] > 0 and p2["hp"] > 0:
     for key, value in p2.items():
         if key == 'skills':
             for i,skill in enumerate(value):
-                print(i, skill['name'], skill['cooldownLeft'])
+                print(i, skill['name'], skill['cooldownLeft'],skill['manacost'])
                 
     p2Skill = p2['skills'][int(input('Select skill: '))]
     while True:
-        if p2Skill['cooldownLeft'] == 0: 
+        if p2Skill['cooldownLeft'] == 0 and p2Skill['manaCost'] <= p2['mana']:
             if p2Skill['type'] =='attack':
                 p2Skill['trigger'](p2, p1)
             else:
@@ -124,7 +128,8 @@ while p1["hp"] > 0 and p2["hp"] > 0:
             item['cooldownLeft'] -= 1
             
     print(p2['name'], p2['hp'])
-    
+p1['mana']=p1['mana']+5
+p2['mana']=p2['mana']+5
     
     # TODO Select Skill DONE
     # TODO Solve Heal Attack function problem DONE
