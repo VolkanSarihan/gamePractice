@@ -81,20 +81,18 @@ while p1["hp"] > 0 and p2["hp"] > 0:
     for key, value in p1.items():
         if key == 'skills':
             for i, skill in enumerate(value):
-                print(i, skill['name'], skill['cooldownLeft'])
-                
+                print(f"{i}) {skill['name']} Cooldown: {skill['cooldownLeft']} Mana: {skill['manaCost']}")
     p1Skill = p1['skills'][int(input('Select skill: '))]            
     while True: # ???????????????????
         if p1Skill['cooldownLeft'] == 0 and p1Skill['manaCost'] <= p1['mana']:
             if p1Skill['type'] =='attack':
                 p1Skill['trigger'](p1, p2)
-                p1['mana']=p1['mana']-p1Skill['manaCost']
             else:
                 p1Skill['trigger'](p1)
-                p1['mana']=p1['mana']-p1Skill['manaCost']
+            p1['mana']=p1['mana']-p1Skill['manaCost']
             break
         else:
-            p1Skill = p1['skills'][int(input('Skill on cooldown. Select another skill: '))] 
+            p1Skill = p1['skills'][int(input('Skill on cooldown or Lack of Mana. Select another skill: '))] 
         
     p1Skill['cooldownLeft'] = p1Skill['cooldown']
     
@@ -106,24 +104,22 @@ while p1["hp"] > 0 and p2["hp"] > 0:
     if 0>=p2 ['hp']:
         break
     
-    print(p2['name'], p2['hp'])
+    print(p2['name'], p2['hp'], p2['mana'])
     for key, value in p2.items():
         if key == 'skills':
             for i,skill in enumerate(value):
-                print(i, skill['name'], skill['cooldownLeft'])
-                
+                print(f"{i}) {skill['name']} Cooldown: {skill['cooldownLeft']} Mana: {skill['manaCost']}")           
     p2Skill = p2['skills'][int(input('Select skill: '))]
     while True:
         if p2Skill['cooldownLeft'] == 0 and p2Skill['manaCost'] <= p2['mana']:
             if p2Skill['type'] =='attack':
                 p2Skill['trigger'](p2, p1)
-                p2['mana']=p2['mana']-p2Skill['manaCost']
             else:
                 p2Skill['trigger'](p2)
-                p2['mana']=p2['mana']-p2Skill['manaCost']
+            p2['mana']=p2['mana']-p2Skill['manaCost']
             break
         else:
-            p2Skill = p2['skills'][int(input('Skill on cooldown. Select another skill: '))] 
+            p2Skill = p2['skills'][int(input('Skill on cooldown or Lack of Mana. Select another skill: '))] 
     
     p2Skill['cooldownLeft'] = p2Skill['cooldown']
     
@@ -131,9 +127,15 @@ while p1["hp"] > 0 and p2["hp"] > 0:
         if item['cooldownLeft'] != 0:
             item['cooldownLeft'] -= 1
             
-    print(p2['name'], p2['hp'])
-p1['mana']=p1['mana']+5
-p2['mana']=p2['mana']+5
+    print(p2['name'], p2['hp'],p2['mana'])
+    if p1['mana']>45:
+        p1['mana']=50
+    else:   
+        p1['mana']=p1['mana']+5
+    if p2['mana']>45:
+        p2['mana']=50
+    else:
+        p2['mana']=p2['mana']+5
     
     # TODO Select Skill DONE
     # TODO Solve Heal Attack function problem DONE
